@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="-apple-system,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrCyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0891b2"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="600" rx="16" fill="#f8fafc"/>
+
+  <!-- 浏览器 -->
+  <rect x="320" y="36" width="260" height="78" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="450" y="68" text-anchor="middle" font-size="17" font-weight="700" fill="#0f172a">浏览器 · 控制台</text>
+  <text x="450" y="94" text-anchor="middle" font-size="12.5" fill="#64748b">总览 / 主机 / 告警 / 技能 / 诊断报告 / 处置</text>
+
+  <!-- HTTPS 箭头 -->
+  <line x1="450" y1="114" x2="450" y2="192" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="466" y="148" font-size="12.5" fill="#334155" font-weight="600">HTTPS</text>
+  <text x="466" y="168" font-size="12" fill="#64748b">SSE 实时推送</text>
+
+  <!-- FastAPI 平台 -->
+  <rect x="110" y="196" width="680" height="176" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="450" y="230" text-anchor="middle" font-size="18" font-weight="800" fill="#1e3a8a">FastAPI 平台（单容器）</text>
+  <g font-size="12.5" fill="#1d4ed8" text-anchor="middle">
+    <rect x="136" y="252" width="148" height="42" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="210" y="278">告警引擎（7×24）</text>
+    <rect x="296" y="252" width="148" height="42" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="370" y="278">AI 诊断 · ReAct</text>
+    <rect x="456" y="252" width="148" height="42" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="530" y="278">技能自动路由</text>
+    <rect x="616" y="252" width="148" height="42" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="690" y="278">九条护栏 · 准入判决</text>
+    <rect x="136" y="306" width="148" height="42" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="210" y="332">案例库 · 语义记忆</text>
+    <rect x="296" y="306" width="148" height="42" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="370" y="332">巡检 · 健康日报</text>
+    <rect x="456" y="306" width="148" height="42" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="530" y="332">通知路由 · 语音播报</text>
+    <rect x="616" y="306" width="148" height="42" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="690" y="332">多维指标即时查询</text>
+  </g>
+
+  <!-- 拉取式箭头（Agent → 平台） -->
+  <line x1="260" y1="452" x2="260" y2="378" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arrGreen)"/>
+  <text x="120" y="404" font-size="13" fill="#15803d" font-weight="700">拉取式通道</text>
+  <text x="120" y="424" font-size="11.5" fill="#4d7c0f">Agent 主动出站 · 主机 0 入站端口</text>
+
+  <!-- MySQL 箭头（平台 → SeekDB） -->
+  <line x1="672" y1="372" x2="672" y2="446" stroke="#0891b2" stroke-width="2" marker-end="url(#arrCyan)"/>
+  <text x="688" y="404" font-size="12.5" fill="#0e7490" font-weight="600">MySQL 协议</text>
+  <text x="688" y="424" font-size="11.5" fill="#64748b">向量写入 / 召回</text>
+
+  <!-- SeekDB -->
+  <rect x="510" y="450" width="330" height="104" rx="12" fill="#ecfeff" stroke="#0891b2" stroke-width="1.8"/>
+  <text x="675" y="486" text-anchor="middle" font-size="17" font-weight="700" fill="#155e75">SeekDB（单机）</text>
+  <text x="675" y="512" text-anchor="middle" font-size="12.5" fill="#0e7490">MySQL 协议兼容 · 向量检索内置（零额外组件）</text>
+  <text x="675" y="534" text-anchor="middle" font-size="11.5" fill="#64748b">2881 容器内 · 命名卷持久化 · 2891 不对外开放</text>
+
+  <!-- Agent -->
+  <rect x="110" y="452" width="320" height="112" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.8"/>
+  <text x="270" y="484" text-anchor="middle" font-size="16" font-weight="700" fill="#14532d">Agent · 每台被监控主机</text>
+  <g font-size="12" fill="#166534" text-anchor="middle">
+    <text x="270" y="508">psutil 指标采集 · 探活（TCP/HTTP/进程/证书）</text>
+    <text x="270" y="530">诊断只读工具 ×8 · 技能授权只读命令</text>
+    <text x="270" y="551">拉任务 → 执行 → 回报 · 守护进程崩溃自拉起</text>
+  </g>
+</svg>

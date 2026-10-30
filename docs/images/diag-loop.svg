@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="430" viewBox="0 0 1500 430" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif">
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2b6cb0"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#38a169"/>
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#e53e3e"/>
+    </marker>
+  </defs>
+  <rect width="1500" height="430" fill="#ffffff"/>
+
+  <!-- ═══ 主链六站（y=70，高 120） ═══ -->
+  <!-- ① 告警 -->
+  <rect x="30" y="70" width="200" height="120" rx="12" fill="#fff5f5" stroke="#e53e3e" stroke-width="2"/>
+  <text x="130" y="102" text-anchor="middle" font-size="20" font-weight="700" fill="#c53030">① 告警</text>
+  <text x="130" y="130" text-anchor="middle" font-size="15" fill="#4a5568">15s 拉取 · 指纹去重</text>
+  <text x="130" y="152" text-anchor="middle" font-size="15" fill="#4a5568">收敛成 S1 故障事件</text>
+  <text x="130" y="174" text-anchor="middle" font-size="13" fill="#a0aec0">不丢一条，也不刷屏</text>
+
+  <!-- ② 技能自动路由 -->
+  <rect x="262" y="70" width="210" height="120" rx="12" fill="#f7f5ff" stroke="#805ad5" stroke-width="2"/>
+  <text x="367" y="102" text-anchor="middle" font-size="20" font-weight="700" fill="#553c9a">② 技能自动路由</text>
+  <text x="367" y="130" text-anchor="middle" font-size="15" fill="#4a5568">按告警指标命中技能</text>
+  <text x="367" y="152" text-anchor="middle" font-size="15" fill="#4a5568">SKILL.md 自动装载</text>
+  <text x="367" y="174" text-anchor="middle" font-size="13" fill="#a0aec0">排查经验先于模型进场</text>
+
+  <!-- ③ ReAct 诊断 -->
+  <rect x="504" y="70" width="240" height="120" rx="12" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="2.2"/>
+  <text x="624" y="102" text-anchor="middle" font-size="20" font-weight="700" fill="#2c5282">③ ReAct 诊断</text>
+  <text x="624" y="128" text-anchor="middle" font-size="15" fill="#4a5568">8 个只读工具 · 逐步留痕</text>
+  <text x="624" y="150" text-anchor="middle" font-size="15" fill="#4a5568">预算五件套护栏</text>
+  <text x="624" y="172" text-anchor="middle" font-size="13" fill="#a0aec0">技能授权命令 · 白名单内只读执行</text>
+
+  <!-- ④ 证据链结论 -->
+  <rect x="776" y="70" width="230" height="120" rx="12" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="2.2"/>
+  <text x="891" y="102" text-anchor="middle" font-size="20" font-weight="700" fill="#2c5282">④ 证据链结论</text>
+  <text x="891" y="128" text-anchor="middle" font-size="15" fill="#4a5568">CONFIRMED / LIKELY /</text>
+  <text x="891" y="150" text-anchor="middle" font-size="15" fill="#4a5568">INCONCLUSIVE 三档</text>
+  <text x="891" y="172" text-anchor="middle" font-size="13" fill="#a0aec0">每条带 step 引用 · 查不到也明说</text>
+
+  <!-- ⑤ 三档执行 -->
+  <rect x="1038" y="70" width="220" height="120" rx="12" fill="#fffaf0" stroke="#dd6b20" stroke-width="2"/>
+  <text x="1148" y="102" text-anchor="middle" font-size="20" font-weight="700" fill="#c05621">⑤ 三档执行</text>
+  <text x="1148" y="128" text-anchor="middle" font-size="15" fill="#4a5568">建议（默认，不下发）</text>
+  <text x="1148" y="150" text-anchor="middle" font-size="15" fill="#4a5568">人工确认 · 白名单自动</text>
+  <text x="1148" y="172" text-anchor="middle" font-size="13" fill="#a0aec0">4 个白名单动作 · 执行后自校验</text>
+
+  <!-- ⑥ 案例沉淀 -->
+  <rect x="1290" y="70" width="180" height="120" rx="12" fill="#f0fff4" stroke="#38a169" stroke-width="2"/>
+  <text x="1380" y="102" text-anchor="middle" font-size="20" font-weight="700" fill="#22543d">⑥ 案例沉淀</text>
+  <text x="1380" y="130" text-anchor="middle" font-size="15" fill="#4a5568">根因+报告入库</text>
+  <text x="1380" y="152" text-anchor="middle" font-size="15" fill="#4a5568">事件关闭自动触发</text>
+  <text x="1380" y="174" text-anchor="middle" font-size="13" fill="#a0aec0">越用越懂你的环境</text>
+
+  <!-- 主链箭头 -->
+  <line x1="230" y1="130" x2="258" y2="130" stroke="#2b6cb0" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="472" y1="130" x2="500" y2="130" stroke="#2b6cb0" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="744" y1="130" x2="772" y2="130" stroke="#2b6cb0" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="1006" y1="130" x2="1034" y2="130" stroke="#2b6cb0" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="1258" y1="130" x2="1286" y2="130" stroke="#2b6cb0" stroke-width="2.4" marker-end="url(#ab)"/>
+
+  <!-- ═══ 回流：案例 → 向量召回 → ③ ═══ -->
+  <path d="M 1380 190 L 1380 300 L 624 300 L 624 194" fill="none" stroke="#38a169" stroke-width="2.2" stroke-dasharray="8 6" marker-end="url(#ag)"/>
+  <rect x="760" y="282" width="440" height="36" rx="18" fill="#f0fff4" stroke="#38a169" stroke-width="1.4"/>
+  <text x="980" y="306" text-anchor="middle" font-size="15" fill="#22543d">search_cases 向量召回：下次同类故障，历史经验先到场</text>
+
+  <!-- ═══ 底部护栏说明条 ═══ -->
+  <rect x="30" y="350" width="1440" height="52" rx="10" fill="#f7fafc" stroke="#cbd5e0" stroke-width="1.2"/>
+  <text x="750" y="382" text-anchor="middle" font-size="15" fill="#4a5568">
+    全程留痕：每一步工具调用、参数、返回、耗时写入执行瀑布，可逐帧回放 · 诊断只在证据上发言，不在猜测上收敛
+  </text>
+</svg>

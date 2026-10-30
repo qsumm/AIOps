@@ -1,0 +1,130 @@
+# AI 运维监控平台 —— 演示编排（FR-G1）
+#
+# 拉起内容：SeekDB（数据库）+ 平台（API/前端）+ 2 台模拟主机（Agent 容器）
+#
+# 用法（**必须带 --env-file .env**：-f 指向子目录时 compose 的项目目录会变成 deploy/，
+#   根目录的 .env 不会被自动读取，LLM/密钥等变量会全部为空——D7 实测踩到）：
+#   cat > .env <<'EOF'   # 可选：不写也能跑，只是 AI 功能会明确报错
+#   LLM_BASE_URL=https://api.minimaxi.com/v1
+#   LLM_API_KEY=sk-...
+#   LLM_MODEL_MAIN=MiniMax-M3
+#   LLM_MODEL_FAST=MiniMax-M2.7-highspeed
+#   JWT_SECRET=<随机串> KEY_STORE_SECRET=<随机串>
+#   EOF
+#   docker compose --env-file .env -f deploy/docker-compose.yaml up -d --build   # 首次构建约 3-6 分钟
+#   docker compose --env-file .env -f deploy/docker-compose.yaml exec platform python scripts/seed_demo.py --days 7
+#   bash deploy/faults/cpu_spike.sh                                  # 触发故障（见 deploy/faults/README.md）
+#
+# ⚠ 镜像来源：SeekDB 使用本地既有镜像 `oceanbase/seekdb:latest`（D0 冒烟用的同一镜像）。
+#   若目标机器上没有该镜像且 Docker Hub 不可达，请用镜像源前缀（用户机器上已有 daocloud 镜像）：
+#     docker tag docker.m.daocloud.io/oceanbase/seekdb:latest oceanbase/seekdb:latest
+#   或自行 `docker build -f deploy/Dockerfile.seekdb .`（从官方 deb 包构建，见该文件说明）。
+
+name: aiops-demo
+
+# D64 运维加固：Docker 默认 json-file 日志**不封顶**（长时间运行会把磁盘写满，
+# 服务器实测 40G 盘已用 70%）。统一限额：每容器最多 3 个文件 × 10MB。
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  seekdb:
+    logging: *default-logging
+    image: oceanbase/seekdb:latest
+    container_name: aioshot-seekdb
+    # ⚠ 不要传 command：该镜像入口把参数当 **SQL** 执行后退出（实测），
+    #   不带参数才是常驻服务；建库由平台侧 scripts/db_init.py 负责（幂等）。
+    environment:
+      # 实测（2026-10-18）：seekdb 1.4 的 /root/start.sh 读的是 **ROOT_PASSWORD**，
+      # OB_ROOT_PASSWORD 并未被该脚本使用。只传 OB_* 时，重建已有数据目录会拿空密码校验
+      # → “Authentication failed … Refusing to reset” 无限重启。两个都传，兼容不同镜像版本。
+      - ROOT_PASSWORD=${DB_PASSWORD:-}
+      - OB_ROOT_PASSWORD=${DB_PASSWORD:-}
+    restart: unless-stopped
+    ports:
+      - "12891:2881"
+    volumes:
+      # D65（S1 实测定根因）：seekdb 镜像的真实数据目录是 /var/lib/seekdb
+      # （启动日志：--data-dir=/var/lib/seekdb/store）。原先挂 /var/lib/oceanbase
+      # **从未存过数据**（实测卷 4.0K vs 真实数据 193MB）——容器一重建数据即全丢。
+      - seekdb-data:/var/lib/seekdb
+    # 不做 healthcheck：镜像内无 mysql/python 客户端（实测），
+    # 改为平台侧 db_init.py 带重试等待（更可靠且不依赖镜像内工具）
+
+  platform:
+    logging: *default-logging
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.platform
+      args:
+        # pip 源默认走阿里云镜像（实测：直连 pypi.org 30+ 分钟，阿里云 ~10 分钟；2026-10-21 用户要求固化）。
+        # 临时换源：PIP_INDEX_URL=... docker compose ... build，或 --build-arg PIP_INDEX_URL=...
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://mirrors.aliyun.com/pypi/simple}
+    container_name: aioshot-platform
+    environment:
+      - DB_HOST=seekdb
+      - DB_PORT=2881
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD:-}
+      - DB_NAME=aiops
+      - JWT_SECRET=${JWT_SECRET:-demo-jwt-secret-change-me-in-production-0123456789}
+      - KEY_STORE_SECRET=${KEY_STORE_SECRET:-demo-keystore-secret-change-me-in-production-01234}
+      - DEMO_ENABLED=true
+      - PUBLIC_BASE_URL=${PUBLIC_BASE_URL:-}
+      # LLM：留空则 AI 功能明确报错（告警/巡检/采集不受影响）。填了即可用真模型。
+      - LLM_BASE_URL=${LLM_BASE_URL:-}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL_MAIN=${LLM_MODEL_MAIN:-}
+      - LLM_MODEL_FAST=${LLM_MODEL_FAST:-}
+    ports:
+      - "18848:8848"
+    # 探活目标：容器内自带 http 服务（deploy/agent/mock_service.py）+ 证书探活示例
+    # 由 Dockerfile.agent 的 CMD 注入 --probes
+    restart: unless-stopped
+    depends_on:
+      - seekdb
+    command: >
+      sh -c "python scripts/db_init.py &&
+             alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8848"
+
+  # 模拟主机 1：CPU 敏感型，用于 cpu_spike / mem_leak 故障注入
+  mock-host-1:
+    logging: *default-logging
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.agent
+    container_name: aioshot-agent-1
+    hostname: mock-web-01          # Agent 用 platform.node() 作为主机名上报
+    environment:
+      - AIOPS_SERVER=http://platform:8848
+      # 固定指纹：容器重建不换身份（否则平台会多出一台"新主机"，D7 实测）
+      - AIOPS_FINGERPRINT=demo-mock-web-01
+    restart: unless-stopped
+    depends_on:
+      - platform
+    expose:
+      - "8080"
+
+  # 模拟主机 2：带一个会假死的服务，用于 probe_fail / process_hang
+  mock-host-2:
+    logging: *default-logging
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.agent
+    container_name: aioshot-agent-2
+    hostname: mock-db-01
+    environment:
+      - AIOPS_SERVER=http://platform:8848
+      - AIOPS_FINGERPRINT=demo-mock-db-01
+    restart: unless-stopped
+    depends_on:
+      - platform
+    expose:
+      - "8080"
+
+volumes:
+  seekdb-data:

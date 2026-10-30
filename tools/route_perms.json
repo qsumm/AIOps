@@ -1,0 +1,1225 @@
+{
+ "endpoints": [
+  {
+   "method": "GET",
+   "path": "/api/audit-logs",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/auth/demo",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/auth/login",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/auth/me",
+   "cap": null,
+   "auth": true,
+   "roles": [
+    "任意登录用户"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/auth/password",
+   "cap": null,
+   "auth": true,
+   "roles": [
+    "任意登录用户"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/auth/perms",
+   "cap": null,
+   "auth": true,
+   "roles": [
+    "任意登录用户"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/dev/mint-license",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/health",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/license",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/license/activate",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/license/state",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/llm-configs",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/llm-configs",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/llm-configs/usage",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "PUT",
+   "path": "/api/llm-configs/{cfg_id}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/llm-configs/{cfg_id}/test",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/action-allowlist",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/action-audit",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/agents/config",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/agents/heartbeat",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/agents/metrics",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/agents/register",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/agents/tasks",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/agents/tasks/{tid}/result",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/alert-mutes",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/alert-mutes",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/api/ops/alert-mutes/{mid}",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/alert-rules",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/alert-rules",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/api/ops/alert-rules/{rid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "PUT",
+   "path": "/api/ops/alert-rules/{rid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/alert-rules/{rid}/test",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/alert-rules/{rid}/toggle",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/alerts",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/alerts/bulk",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/alerts/stream",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/alerts/{h}/ack",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/alerts/{h}/resolve",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/case-cards",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/case-cards",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/case-cards/recall",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/case-cards/stats",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/api/ops/case-cards/{cid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "PATCH",
+   "path": "/api/ops/case-cards/{cid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/chat/sessions",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/api/ops/chat/sessions/{sid}",
+   "cap": null,
+   "auth": true,
+   "roles": [
+    "任意登录用户"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/chat/sessions/{sid}",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/chat/stream",
+   "cap": "chat",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member",
+    "demo(可开关)"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/chat/suggestions",
+   "cap": "chat",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member",
+    "demo(可开关)"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/chat/suggestions/refresh",
+   "cap": "chat",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member",
+    "demo(可开关)"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/dashboard/overview",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/dev/engine-state",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/dev/mint-install-token",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/heal/actions",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/heal/kill-switch",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/heal/kill-switch",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/hosts",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/hosts/{ident}",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/hosts/{ident}/rename",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/incidents",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/incidents",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/incidents/merge",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/incidents/{iid}",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/incidents/{iid}/ack",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/incidents/{iid}/close",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/incidents/{iid}/context",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/incidents/{iid}/diagnose",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/incidents/{iid}/diagnose/stream",
+   "cap": null,
+   "auth": false,
+   "roles": [
+    "匿名"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/incidents/{iid}/findings",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/incidents/{iid}/split",
+   "cap": "alert_ops",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/inspections",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/inspections",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/inspections/run-once",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/api/ops/inspections/{iid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/inspections/{iid}",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "PUT",
+   "path": "/api/ops/inspections/{iid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/inspections/{iid}/run",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/install-token",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/log-fetch",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/metrics/query",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/notification-records",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/notify-channels",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/notify-channels",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/api/ops/notify-channels/{cid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "PUT",
+   "path": "/api/ops/notify-channels/{cid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/notify-channels/{cid}/test",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/prom-datasources",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/prom-datasources",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/api/ops/prom-datasources/{did}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "PUT",
+   "path": "/api/ops/prom-datasources/{did}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/prom-datasources/{did}/scrape-now",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/prom-datasources/{did}/test",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/prom/query",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/runbooks",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/runbooks",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/runbooks/generate/{incident_id}",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/runbooks/{rid}",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "PUT",
+   "path": "/api/ops/runbooks/{rid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/runbooks/{rid}/execute",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/runbooks/{rid}/steps/{step_idx}/confirm",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/services",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/services",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/services/overview",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/services/templates",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "DELETE",
+   "path": "/api/ops/services/{sid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "PATCH",
+   "path": "/api/ops/services/{sid}",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/services/{sid}/heal",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/services/{sid}/heal-reset",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/services/{sid}/heal-state",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/services/{sid}/heal/preview",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/services/{sid}/log-fetch",
+   "cap": "diag",
+   "auth": true,
+   "roles": [
+    "admin",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/skills",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/skills",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/skills/import",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/skills/{sid}",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/skills/{sid}/check",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "/api/ops/skills/{sid}/toggle",
+   "cap": "write",
+   "auth": true,
+   "roles": [
+    "admin"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/tasks",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/tasks/recent",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/ops/tasks/{tid}",
+   "cap": "read",
+   "auth": true,
+   "roles": [
+    "admin",
+    "demo",
+    "member"
+   ]
+  },
+  {
+   "method": "GET",
+   "path": "/api/sse-ticket",
+   "cap": null,
+   "auth": true,
+   "roles": [
+    "任意登录用户"
+   ]
+  }
+ ],
+ "perm_matrix": {
+  "read": [
+   "admin",
+   "demo",
+   "member"
+  ],
+  "diag": [
+   "admin",
+   "member"
+  ],
+  "alert_ops": [
+   "admin",
+   "member"
+  ],
+  "write": [
+   "admin"
+  ]
+ }
+}

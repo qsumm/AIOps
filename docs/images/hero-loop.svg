@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="766" viewBox="0 0 1800 766" font-family="Hannotate SC, HanziPen SC, Kaiti SC, PingFang SC, sans-serif">
+  <!-- 牛皮纸底 -->
+  <rect width="1800" height="766" fill="#f7f0e0"/>
+  <rect x="18" y="18" width="1764" height="730" fill="#faf5e8" stroke="#d9c9a3" stroke-width="3" stroke-dasharray="14 8" rx="18"/>
+
+  <!-- 顶部胶带 -->
+  <rect x="780" y="2" width="240" height="52" rx="6" fill="#e8d9b0" opacity="0.85" transform="rotate(-2 900 28)"/>
+  <text x="900" y="40" text-anchor="middle" font-size="30" fill="#8a6d3b">真实故障复盘</text>
+
+  <!-- 标题（手写体 + 黄色马克笔高亮） -->
+  <rect x="120" y="80" width="1000" height="96" fill="#ffe28a" opacity="0.75" rx="10" transform="rotate(-1 620 128)"/>
+  <text x="140" y="156" font-size="84" font-weight="700" fill="#3d3325">告警一响，AI 自己查完</text>
+  <text x="1420" y="150" font-size="72" font-weight="700" fill="#c0392b">6分37秒</text>
+  <path d="M 1415 168 q 100 18 200 0" stroke="#c0392b" stroke-width="5" fill="none"/>
+
+  <!-- 四个手绘框流程 -->
+  <!-- 框1 告警响 -->
+  <rect x="90" y="300" width="330" height="200" rx="14" fill="#fffdf5" stroke="#3d3325" stroke-width="4"/>
+  <rect x="98" y="308" width="314" height="184" rx="10" fill="none" stroke="#3d3325" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="255" y="370" text-anchor="middle" font-size="46">🔔</text>
+  <text x="255" y="440" text-anchor="middle" font-size="46" font-weight="700" fill="#3d3325">告警响</text>
+  <text x="255" y="478" text-anchor="middle" font-size="26" fill="#8a6d3b">46 秒 · 三路探活</text>
+  <path d="M 430 400 q 40 -18 76 0" stroke="#c0392b" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M 496 386 l 14 14 l -18 6" stroke="#c0392b" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 框2 AI 查 -->
+  <rect x="520" y="300" width="330" height="200" rx="14" fill="#fffdf5" stroke="#3d3325" stroke-width="4"/>
+  <rect x="528" y="308" width="314" height="184" rx="10" fill="none" stroke="#3d3325" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="685" y="370" text-anchor="middle" font-size="46">🔍</text>
+  <text x="685" y="440" text-anchor="middle" font-size="46" font-weight="700" fill="#3d3325">AI 查</text>
+  <text x="685" y="478" text-anchor="middle" font-size="26" fill="#8a6d3b">24 步取证 · 全留痕</text>
+  <path d="M 860 400 q 40 -18 76 0" stroke="#c0392b" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M 926 386 l 14 14 l -18 6" stroke="#c0392b" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 框3 你拍板 -->
+  <rect x="950" y="300" width="330" height="200" rx="14" fill="#fffdf5" stroke="#3d3325" stroke-width="4"/>
+  <rect x="958" y="308" width="314" height="184" rx="10" fill="none" stroke="#3d3325" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="1115" y="370" text-anchor="middle" font-size="46">✍️</text>
+  <text x="1115" y="440" text-anchor="middle" font-size="46" font-weight="700" fill="#3d3325">你拍板</text>
+  <text x="1115" y="478" text-anchor="middle" font-size="26" fill="#8a6d3b">护栏预检 · 人工确认</text>
+  <path d="M 1290 400 q 40 -18 76 0" stroke="#c0392b" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M 1356 386 l 14 14 l -18 6" stroke="#c0392b" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 框4 它动手 -->
+  <rect x="1380" y="300" width="330" height="200" rx="14" fill="#fdf3d8" stroke="#c0392b" stroke-width="5"/>
+  <rect x="1388" y="308" width="314" height="184" rx="10" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="1545" y="370" text-anchor="middle" font-size="46">🤖</text>
+  <text x="1545" y="440" text-anchor="middle" font-size="46" font-weight="700" fill="#c0392b">它动手</text>
+  <text x="1545" y="478" text-anchor="middle" font-size="26" fill="#8a6d3b">1.04 秒重启 · 后置校验</text>
+
+  <!-- 底部手写结论 -->
+  <rect x="300" y="580" width="1200" height="90" fill="#ffe28a" opacity="0.65" rx="12" transform="rotate(-0.6 900 625)"/>
+  <text x="900" y="640" text-anchor="middle" font-size="52" font-weight="700" fill="#3d3325">AI 把事实查清楚，拍板权在人，动手的是受护栏的 Agent</text>
+  <text x="1660" y="720" text-anchor="end" font-size="30" fill="#a08b5f">—— TestOPS 实录</text>
+</svg>

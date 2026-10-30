@@ -1,0 +1,24 @@
+# 模拟被监控主机镜像（Agent 采集 + 可注入故障的本机服务）
+FROM docker.m.daocloud.io/library/python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1
+WORKDIR /agent
+
+# apt 源默认走阿里云（D227 用户实测：deb.debian.org 国内连不上是**默认路径**，
+# 不能指望用户记得传 --build-arg）；海外机器可覆盖：--build-arg APT_MIRROR=deb.debian.org
+ARG APT_MIRROR=mirrors.aliyun.com
+RUN sed -i "s|deb.debian.org|${APT_MIRROR}|g" /etc/apt/sources.list.d/debian.sources 2>/dev/null || true
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl procps stress-ng busybox && rm -rf /var/lib/apt/lists/*
+
+COPY agent/requirements-agent.txt /agent/requirements.txt
+# pip 源默认阿里云（同上，国内默认路径必须可用）
+ARG PIP_INDEX_URL=https://mirrors.aliyun.com/pypi/simple
+RUN pip install --no-cache-dir -i ${PIP_INDEX_URL} -r /agent/requirements.txt
+
+COPY agent /agent
+COPY deploy/agent/mock_service.py /agent/mock_service.py
+COPY deploy/faults /faults
+
+# 同时跑：业务模拟服务（供探活）+ Agent 采集上报
+CMD ["sh", "-c", "python mock_service.py & exec python agent_main.py --server $AIOPS_SERVER --interval 15 --probes '[{\"name\":\"业务HTTP\",\"type\":\"http\",\"target\":\"http://127.0.0.1:8080/health\"},{\"name\":\"业务端口\",\"type\":\"tcp\",\"target\":\"127.0.0.1:8080\"},{\"name\":\"mock-service进程\",\"type\":\"process\",\"target\":\"mock_service.py\"}]'"]

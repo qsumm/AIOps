@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+# 环境与密钥
+.env
+*.key
+# 数据与日志
+*.db
+logs/
+# IDE
+.idea/
+.vscode/
+.DS_Store
+
+# D66：内置手册的同步产物（由 tools/sync_manual.py 生成，源在 docs/）
+static/manual/
+agent/agent_cache.db
+
+# 视觉工具的临时产物目录（不入库）
+.mavis/

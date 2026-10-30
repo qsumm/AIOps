@@ -1,0 +1,35 @@
+# AI 运维监控平台 — Python 依赖（版本锁定基线见 docs/01-需求与设计/08-技术选型与版本锁定.md）
+# Python 3.11（.python-version 已锁）；安装：uv pip install -r backend/requirements.txt
+fastapi==0.143.0
+uvicorn==0.54.0
+sqlalchemy==2.1.4
+alembic==1.20.0
+apscheduler==3.11.3
+httpx==0.28.1
+pyjwt==2.15.1
+bcrypt==5.0.0
+openai==3.29.0
+aiomysql==0.3.2
+pymysql==1.2.3
+scikit-learn==1.9.1
+prometheus-client==0.26.0   # FR-B3+：直接 scrape node_exporter 的 /metrics（官方解析器）
+pydantic-settings==2.15.0
+cryptography==50.0.2
+pytest==9.1.1
+pytest-asyncio==1.4.0
+
+# sqlalchemy async 必需（D0 冒烟发现，补录）
+greenlet==3.5.6
+# agent 采集依赖（D1）
+psutil==7.2.2
+
+# 通知渠道传输层（ADR-002）：BSD-2-Clause，内置 161 插件（feishu/lark/dingtalk/wecombot/email/custom_json…）
+apprise==2.0.1
+# apprise 传递依赖，按 08 版本锁定纪律显式固化
+requests==2.34.2
+urllib3==2.8.0
+requests-oauthlib==2.0.0
+markdown==3.11
+PyYAML==6.0.3
+click==8.5.0
+certifi==2026.7.22

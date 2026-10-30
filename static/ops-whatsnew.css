@@ -1,0 +1,299 @@
+/* ops-whatsnew.css —— 更新公告弹窗（FR-421）
+ *
+ * 纪律（AGENTS.md / 前端风格规范 / D50 调色板收敛）：
+ *   ① 只用平台既有令牌（--accent / --surface / --border / --text / --muted / --pass / --fail / --warn）；
+ *   ② **禁暖色**（色相 10°~75°）——发布公告图那套红橙渐变不能照抄，改用强调蓝；
+ *   ③ 禁新配色、禁 CSS 框架、禁 CDN 资源；右侧视觉区纯 CSS/SVG 绘制；
+ *   ④ 透明度变体一律 rgba(var(--x-rgb), …) 令牌式，不写字面值；
+ *   ⑤ 动效必须有 prefers-reduced-motion 豁免。
+ */
+
+/* ── 遮罩（弹窗 / 更新中心各用各的类，避免互相误关） ───────── */
+.wn-mask,
+.wn-center-mask {
+  position: fixed; inset: 0;
+  background: var(--overlay-3);
+  opacity: 0; transition: opacity .2s ease;
+  z-index: 1000;
+}
+.wn-mask.open,
+.wn-center-mask.open { opacity: 1; }
+
+/* ── ① 分栏大卡（major · D133 定稿）───────────────────────────
+ *
+ * 形态：左文右图。左侧 = 版本胶囊 → 大标题 → 一句话导语 → 「更新要点」三行
+ *       （每行右侧一条竖线隔开的 mono 数据锚点）→ 按钮组；
+ *       右侧 = 像素插画（wn_pixelscene.js 代码手绘，扁平色块 + 平台蓝）。
+ *
+ * 纪律（前端风格规范 + D50 调色板收敛 + test_d130_whatsnew.py 机械守卫）：
+ *   ① 只用平台既有令牌（--accent / --surface / --surface2 / --border / --text / --muted）；
+ *   ② 禁暖色（色相 10°~75°）、禁新配色、禁 CSS 框架、禁 CDN 资源；
+ *   ③ **右栏不许出现渐变 / 模糊 / 发光 / 投影 / 假读数**——像素画是扁平色块，
+ *      画面是场景不是读数带，绝不冒充真实指标；
+ *   ④ 动效须有 prefers-reduced-motion 豁免。
+ */
+
+/* 遮罩（major 用 .wn2-mask；更新中心用 .wn-center-mask，互不误关） */
+.wn2-mask {
+  position: fixed; inset: 0;
+  background: var(--overlay-3);
+  opacity: 0; transition: opacity .2s ease;
+  z-index: 1000;
+}
+.wn2-mask.open { opacity: 1; }
+
+.wn2-modal {
+  position: fixed; z-index: 1001;
+  top: 50%; left: 50%;
+  width: min(790px, 94vw);
+  max-height: min(88vh, 720px);
+  transform: translate(-50%, -46%) scale(.985);
+  opacity: 0;
+  transition: transform .22s cubic-bezier(.2, .8, .3, 1), opacity .22s ease;
+  display: flex; overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-pop);
+  backdrop-filter: blur(18px);
+}
+.wn2-modal.open { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+
+/* 左：内容 */
+.wn2-main {
+  flex: 1 1 auto; min-width: 0;
+  padding: 30px 28px 22px;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+
+.wn2-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.wn2-pill {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 99px;
+  font-size: 0.7rem; font-weight: 600; line-height: 1.6;
+  color: var(--accent);
+  background: var(--accent-weak);
+  box-shadow: inset 0 0 0 1px var(--accent-soft);
+}
+.wn2-when { font-size: 0.72rem; color: var(--muted); }
+
+.wn2-title {
+  margin: 0 0 10px;
+  font-size: 1.72rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;
+  color: var(--text);
+}
+.wn2-sub { margin: 0 0 18px; font-size: 0.86rem; line-height: 1.65; color: var(--muted); }
+
+.wn2-list-label {
+  font-size: 0.68rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.wn2-list { border-top: 1px solid var(--border-soft, var(--border)); }
+.wn2-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 2px;
+  border-bottom: 1px solid var(--border-soft, var(--border));
+}
+.wn2-item-main { flex: 1 1 auto; min-width: 0; }
+.wn2-item-title { font-size: 0.88rem; font-weight: 600; letter-spacing: -0.01em; color: var(--text); }
+.wn2-item-desc { margin-top: 3px; font-size: 0.8rem; line-height: 1.55; color: var(--muted); }
+.wn2-item-stat {
+  flex: 0 0 auto; margin-left: 12px; padding-left: 12px;
+  border-left: 1px solid var(--border-soft, var(--border));
+  text-align: right;
+}
+.wn2-stat-n { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+.wn2-stat-l { margin-top: 3px; font-size: 0.66rem; color: var(--muted); }
+
+.wn2-foot { display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 20px; }
+
+/* 右栏顶栏：与底部图注同高同风格，上下两条窄栏把插画夹成完整画框 */
+.wn2-artbar {
+  width: 100%;
+  padding: 12px 12px 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.62rem; letter-spacing: .06em; color: var(--muted);
+  border-bottom: 1px solid var(--border-soft, var(--border));
+}
+.wn2-close {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; padding: 0; margin: -6px -4px -6px 0;
+  border: none; border-radius: 7px;
+  background: transparent; color: var(--muted);
+  cursor: pointer; transition: color .15s ease, background .15s ease;
+}
+.wn2-close:hover { color: var(--text); background: var(--border-soft, var(--border)); }
+.wn2-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* 右：像素插画区（扁平色块，无渐变/无发光/无投影/无假读数） */
+/* 右栏 = 一张**纸面**：画面直接"长"在纸上（不套白边相框，避免贴图感），
+   纸色比左栏白面略深、比遮罩灰亮——分栏靠明度差成立，不靠描边。 */
+.wn2-art {
+  flex: 0 0 300px;
+  display: flex; flex-direction: column; align-items: center;
+  background: var(--surface2);
+  border-left: 1px solid var(--border);
+  overflow: hidden;
+}
+.wn2-scene {
+  margin-top: 0;               /* 画面贴住纸面上沿 */
+  line-height: 0;              /* 画布是块级图，别留行内基线缝隙 */
+}
+.wn2-scene canvas { display: block; image-rendering: pixelated; }
+.wn2-caption {
+  width: 100%;
+  margin-top: auto;            /* 图注压到纸面下沿 */
+  padding: 12px 16px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.62rem; letter-spacing: .06em; color: var(--muted);
+  border-top: 1px solid var(--border-soft, var(--border));
+}
+
+/* 窄屏：改为上下堆叠（右图在下） */
+@media (max-width: 760px) {
+  .wn2-modal { flex-direction: column; }
+  .wn2-art { flex: 0 0 auto; border-left: none; border-top: 1px solid var(--border); }
+}
+
+/* ── 共用零件（major 弹窗 / 轻量卡片 / 更新中心 共用，勿删） ── */
+.wn-badge {
+  align-self: flex-start;
+  display: inline-block;
+  padding: 3px 12px; border-radius: 99px;
+  font-size: 0.72rem; font-weight: 600; line-height: 1.6;
+  color: var(--accent);
+  background: var(--accent-weak);
+  border: 1px solid var(--accent-soft);
+}
+.wn-badge.sm { font-size: 0.68rem; padding: 1px 9px; }
+
+.wn-list { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.wn-list li { position: relative; padding-left: 17px; font-size: 0.86rem; line-height: 1.65; color: var(--muted); }
+.wn-list li::before {
+  content: ""; position: absolute; left: 0; top: 9px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+}
+.wn-item-lead { color: var(--text); font-weight: 600; margin-right: 6px; }
+.wn-item-text { color: var(--muted); }
+
+/* ── ② 轻量卡片（minor） ─────────────────────────────────── */
+.wn-mini {
+  position: fixed; top: 16px; right: 16px; z-index: 1000;
+  width: min(330px, calc(100vw - 32px));
+  padding: 14px 16px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-pop);
+  backdrop-filter: blur(14px);
+  transform: translateX(12px); opacity: 0;
+  transition: transform .2s ease, opacity .2s ease;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.wn-mini.open { transform: none; opacity: 1; }
+.wn-mini-head { display: flex; align-items: center; gap: 8px; }
+.wn-mini-head .wn-badge { margin-right: auto; }
+.wn-mini-x {
+  border: 0; background: transparent; padding: 3px;
+  color: var(--muted); cursor: pointer; display: inline-flex;
+}
+.wn-mini-x:hover { color: var(--text); }
+.wn-mini-title { font-size: 0.88rem; font-weight: 600; line-height: 1.5; color: var(--text); }
+.wn-mini-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.wn-mini-list li { font-size: 0.78rem; line-height: 1.6; color: var(--muted); padding-left: 12px; position: relative; }
+.wn-mini-list li::before {
+  content: ""; position: absolute; left: 0; top: 8px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+}
+.wn-mini-foot { border-top: 1px solid var(--border-soft, var(--border)); padding-top: 8px; }
+.wn-mini-more {
+  border: 0; background: transparent; padding: 0;
+  color: var(--accent); font-size: 0.76rem; font-family: inherit; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+
+/* ── ③ 更新中心 ──────────────────────────────────────────── */
+.wn-center {
+  position: fixed; top: 0; right: 0; z-index: 1001;
+  height: 100vh; width: min(720px, 94vw);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 30px var(--overlay-1);
+  backdrop-filter: blur(16px);
+  transform: translateX(102%);
+  transition: transform .22s cubic-bezier(.2, .8, .3, 1);
+  display: flex; flex-direction: column;
+}
+.wn-center.open { transform: none; }
+.wn-center-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+}
+.wn-center-head h3 { margin: 0; font-size: 0.95rem; font-weight: 600; flex: 1; }
+.wn-center-body { flex: 1; min-height: 0; padding: 16px 18px 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+.wn-center-lead { display: flex; align-items: baseline; gap: 8px; font-size: 0.8rem; }
+
+.wn-rel {
+  border: 1px solid var(--border-soft, var(--border));
+  border-radius: 12px; padding: 14px 16px;
+  background: var(--surface2);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.wn-rel-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wn-rel-date { font-size: 0.72rem; color: var(--muted); }
+.wn-rel-ver { font-size: 0.72rem; color: var(--muted); }
+.wn-rel-new {
+  font-size: 0.64rem; font-weight: 600; line-height: 1.5;
+  padding: 1px 8px; border-radius: 99px;
+  color: var(--accent); background: var(--accent-weak);
+  border: 1px solid var(--accent-soft);
+}
+.wn-rel-title { font-size: 0.9rem; font-weight: 600; line-height: 1.5; color: var(--text); }
+.wn-rel-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.wn-rel-items li { font-size: 0.8rem; line-height: 1.6; color: var(--muted); padding-left: 14px; position: relative; }
+.wn-rel-items li::before {
+  content: ""; position: absolute; left: 0; top: 8px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+}
+.wn-rel-link {
+  align-self: flex-start; border: 0; background: transparent; padding: 0;
+  color: var(--accent); font-size: 0.78rem; font-family: inherit; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+
+/* ── 顶栏铃铛（未读角标） ────────────────────────────────── */
+.wn-bell { position: relative; display: inline-flex; }
+.wn-bell-badge {
+  position: absolute; top: -4px; right: -5px;
+  min-width: 15px; padding: 0 4px;
+  border-radius: 99px; font-size: 0.62rem; font-weight: 600; line-height: 15px;
+  text-align: center; color: var(--on-fill); background: var(--accent);
+  border: 1px solid var(--surface);
+}
+
+/* ── 版本信息页里的「更新历史」区块 ───────────────────────── */
+.about-hist { display: flex; flex-direction: column; gap: 12px; }
+.about-hist-row { border-bottom: 1px dashed var(--border-soft, var(--border)); padding-bottom: 10px; }
+.about-hist-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.about-hist-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.about-hist-title { margin-top: 5px; font-size: 0.84rem; line-height: 1.55; color: var(--text); }
+
+/* ── 响应式 ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .wn2-modal { max-height: 92vh; }
+  .wn2-art { display: none; }      /* 窄屏收起右栏，左侧文字优先 */
+  .wn2-main { padding: 26px 22px 20px; }
+}
+
+/* ── 动效豁免（规范 §1 无障碍细节） ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .wn-modal, .wn-mask, .wn-center, .wn-center-mask, .wn-mini, .wn-cta {
+    transition: none !important;
+    animation: none !important;
+  }
+  .wn-modal { transform: translate(-50%, -50%); }
+  .wn-modal:not(.open) { opacity: 0; }
+  .wn-mini { transform: none; }
+}

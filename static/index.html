@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="TestOPS" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title data-i18n="brand">TestOPS Platform</title>
+    <script>
+      // 防闪屏主题引导（规范 §1：内联首脚本，先于渲染；默认 Light）
+      (function () {
+        var theme = localStorage.getItem("ops_theme") || "light";
+        document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+      })();
+    </script>
+    <link rel="stylesheet" href="/ops.css" />
+    <link rel="stylesheet" href="/ops-whatsnew.css" />
+    <script src="/vendor/echarts.min.js"></script>
+  </head>
+  <body>
+    <div class="app-layout" id="app" hidden>
+      <aside class="sidebar">
+        <div class="sidebar-brand"><svg class="brand-mark" width="28" height="28" viewBox="96 96 320 320" aria-hidden="true"><rect x="96" y="96" width="320" height="320" rx="76" fill="#1A1A1F"/><polyline points="132,258 196,258 228,192 270,302 302,238 318,238" fill="none" stroke="#fff" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/><circle cx="352" cy="238" r="21" fill="#2383E2"/></svg><span data-i18n="brand">TestOPS Platform</span></div>
+
+                <div class="nav-group-title" data-i18n="nav.group.monitor">Monitoring</div>
+        <a class="nav-item" data-page="dashboard"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span data-i18n="page.dashboard">Dashboard</span></a>
+        <a class="nav-item" data-page="hosts"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></span><span data-i18n="page.hosts">Hosts</span></a>
+        <a class="nav-item" data-page="services"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/><path d="M12 10v4"/></svg></span><span data-i18n="page.services">Service Monitor</span></a>
+        <a class="nav-item" data-page="alerts"><span class="nav-ico nav-ico-anim"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><span data-i18n="page.alerts">Alerts</span> <span class="nav-badge-warn" id="badge-alerts" hidden></span></a>
+
+        <div class="nav-group-title" data-i18n="nav.group.ai">AI</div>
+        <a class="nav-item" data-page="incidents"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span><span data-i18n="page.incidents">Incidents</span></a>
+        <a class="nav-item" data-page="cases"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span data-i18n="page.cases">Case Library</span></a>
+        <a class="nav-item" data-page="copilot"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span data-i18n="page.copilot">AI Copilot</span></a>
+        <a class="nav-item" data-page="inspections"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><polyline points="9 13 11 15 15 10"/></svg></span><span data-i18n="page.inspections">Inspections</span></a>
+
+        <div class="nav-group-title" data-i18n="nav.group.config">Configuration</div>
+        <a class="nav-item" data-page="rules"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><span data-i18n="page.rules">Alert Rules</span></a>
+        <a class="nav-item" data-page="notifyroutes"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></span><span data-i18n="page.notifyroutes">Notify Routes</span></a>
+        <a class="nav-item" data-page="runbooks"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></span><span data-i18n="page.runbooks">Runbooks</span></a>
+        <a class="nav-item" data-page="heal"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span data-i18n="page.heal">Self-healing</span></a>
+        <a class="nav-item" data-page="skills"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/></svg></span><span data-i18n="page.skills">Skills</span></a>
+
+        <div class="nav-group-title" data-i18n="nav.group.system">System</div>
+        <a class="nav-item" data-page="settings"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span data-i18n="page.settings">Settings</span></a>
+        <a class="nav-item" data-page="audit"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span data-i18n="page.audit">Audit Log</span></a>
+
+        <div class="nav-group-title" data-i18n="nav.group.docs">Docs</div>
+        <a class="nav-item" data-page="manual"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span><span data-i18n="page.manual">User Manual</span></a>
+        <a class="nav-item" data-page="about"><span class="nav-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span><span data-i18n="page.about">Version</span></a>
+
+        <div class="sidebar-foot">
+          <div class="sf-row">
+            <span class="muted" id="who"></span>
+            <span class="muted mono" id="app-version" title="当前版本（详见「文档 → 版本信息」）"></span>
+          </div>
+          <div class="sf-row sf-actions">
+            <div class="lang-switch" id="lang-switch" role="group" aria-label="UI language">
+              <button class="lang-btn" data-lang="zh" data-i18n-title="topbar.lang_zh" title="中文">ZH</button>
+              <button class="lang-btn" data-lang="en" data-i18n-title="topbar.lang_en" title="EN">EN</button>
+            </div>
+            <button class="btn ghost" id="logout" data-i18n="action.logout">Sign out</button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="main">
+        <div class="topbar">
+          <h1 id="page-title" data-i18n="page.dashboard">Dashboard</h1>
+          <span class="count-pill" id="page-pill"></span>
+          <div class="topbar-actions">
+            <span class="muted" id="health">…</span>
+            <button class="btn ghost wn-bell" id="wn-bell" type="button" data-i18n-title="whatsnew.bell_title" title="Release notes" aria-label="Release notes">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M12 2v3"/></svg>
+              <span class="wn-bell-badge" id="wn-badge" hidden>0</span>
+            </button>
+            <button class="btn ghost" id="theme-toggle" title="切换主题" aria-label="切换主题"></button>
+          </div>
+        </div>
+        <div class="license-banner" id="license-banner" hidden></div>
+        <div class="content" id="content"></div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { getToken, clearAuth, getUser, api, loadPerms, can } from "/js/api.js";
+      import { t, applyI18n } from "/js/i18n.js";
+      import { toast } from "/js/ui.js";
+      import { initWhatsNew, paintBadge, openCenter } from "/js/whatsnew.js";
+      import * as loginPage from "/js/pages/login.js";
+      import * as dashboard from "/js/pages/dashboard.js";
+      import * as hosts from "/js/pages/hosts.js";
+      import * as alerts from "/js/pages/alerts.js";
+      import * as rules from "/js/pages/rules.js";
+      import * as incidents from "/js/pages/incidents.js";
+      import * as cases from "/js/pages/cases.js";
+      import * as copilot from "/js/pages/copilot.js";
+      import * as inspections from "/js/pages/inspections.js";
+      import * as runbooks from "/js/pages/runbooks.js";
+      import * as skills from "/js/pages/skills.js";
+      import * as notifyroutes from "/js/pages/notifyroutes.js";
+      import * as settings from "/js/pages/settings.js";
+      import * as heal from "/js/pages/heal.js";
+      import * as audit from "/js/pages/audit.js";
+      import * as services from "/js/pages/services.js";
+      import * as manual from "/js/pages/manual.js";
+      import * as about from "/js/pages/about.js";
+
+      const PAGES = { dashboard, hosts, services, alerts, rules, notifyroutes, incidents, cases, copilot, inspections, runbooks, skills, settings, audit, manual, about, heal };
+      // 页题取自 i18n 字典（FR §2.3 文案集中）；字典缺词时回退中文
+      const TITLES = new Proxy({}, { get: (_a, k) => t("page." + String(k), String(k)) });
+      let current = null;
+
+      const content = document.getElementById("content");
+      const app = document.getElementById("app");
+
+      async function route() {
+        const hash = (location.hash || "#/dashboard").replace(/^#\//, "").split("?")[0] || "dashboard";
+        if (hash === "login" || !getToken()) {
+          if (getToken()) { location.hash = "#/dashboard"; return; }
+          app.hidden = true;
+          const holder = document.getElementById("login-holder") || (() => {
+            const d = document.createElement("div"); d.id = "login-holder"; document.body.append(d); return d;
+          })();
+          loginPage.render(holder);
+          return;
+        }
+        document.getElementById("login-holder")?.remove();
+        document.body.classList.remove("login-mode");
+        app.hidden = false;
+        // D66：支持子路径深链（#/manual/6 → 使用手册第 6 章；#/manual 单段与既有页面一致）
+        const [seg0, ...segRest] = hash.split("/");
+        const key = PAGES[seg0] ? seg0 : "dashboard";
+        if (current && current.destroy) try { current.destroy(); } catch {}
+        document.querySelectorAll(".nav-item").forEach((n) => n.classList.toggle("active", n.dataset.page === key));
+        document.getElementById("page-title").textContent = TITLES[key];
+        document.getElementById("page-pill").textContent = "";
+        current = PAGES[key];
+        await loadPerms().catch(() => {});   // 能力集必须先就绪：页面用同步 can() 决定按钮可见性
+        await current.render(content, segRest.join("/"));
+        const me = getUser();
+        document.getElementById("who").textContent = me ? `${me.username} · ${me.role}` : "";
+      }
+
+      // 按角色收敛导航（D8）：能力集来自服务端 /api/auth/perms。
+      // 例：demo 账号在 DEMO_CHAT_ENABLED=false 时不该看到"AI 助手"（点进去必然 403）。
+      async function applyNavPerms() {
+        try { await loadPerms(); } catch { return; }
+        const need = { copilot: "chat" };   // 导航项 → 所需能力
+        document.querySelectorAll(".nav-item").forEach((n) => {
+          const cap = need[n.dataset.page];
+          if (!cap) return;
+          const ok = can(cap);
+          n.hidden = !ok;
+          if (!ok && location.hash === `#/${n.dataset.page}`) location.hash = "#/dashboard";
+        });
+      }
+      applyI18n();                                   // 外壳文案按当前语言渲染
+      if (getToken()) applyNavPerms();
+      window.addEventListener("hashchange", () => { if (getToken()) applyNavPerms(); });
+
+      // License 门禁状态（FR-A4）：locked → 顶部横幅引导激活；模块位缺失 → 隐藏相应导航
+      (async () => {
+        try {
+          const st = await api.get("/api/license/state");
+          const b = document.getElementById("license-banner");
+          if (st.state === "locked") {
+            b.hidden = false;
+            b.innerHTML = `<b>功能已锁定</b>：${st.reason}　<a href="#/settings">前往系统设置激活</a>`;
+          } else if (st.state === "grace") {
+            b.hidden = false;
+            b.innerHTML = `<b>试用中</b>：${st.reason}　<a href="#/settings">前往激活</a>`;
+          }
+          const mods = st.modules || [];
+          if (st.state !== "disabled" && mods.length && !mods.includes("ops")) {
+            document.querySelectorAll(".nav-item").forEach((n) => { n.classList.add("disabled"); });
+            toast("当前 License 未包含 ops 模块，功能不可用", "warn");
+          }
+        } catch { /* 门禁状态不可得时不阻塞 */ }
+      })();
+
+      // 顶栏：健康 + 主题 + 退出
+      // D44：主题按钮用线性图标（替代 ◐ 字符）
+      (function () {
+        const b = document.getElementById("theme-toggle");
+        if (b) b.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+          + 'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+          + '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none"/></svg>';
+      })();
+      // D66：版本号常显（数据源 = /api/health 的 version/build），点击去「文档 → 版本信息」
+      const verEl = document.getElementById("app-version");
+      if (verEl) {
+        verEl.style.cursor = "pointer";
+        verEl.addEventListener("click", () => { location.hash = "#/about"; });
+      }
+      // D97：右上角"中/EN"语言切换器 —— 启动时按服务端 preferred_lang 高亮；
+      // 点击后：登录态 → PATCH /api/auth/me/lang 同步到服务端 → reload；未登录 → 写 localStorage → reload
+      (function () {
+        const sw = document.getElementById("lang-switch"); if (!sw) return;
+        const paint = (cur) => { for (const b of sw.querySelectorAll(".lang-btn")) b.classList.toggle("on", b.dataset.lang === cur); };
+        sw.addEventListener("click", async (e) => {
+          const btn = e.target.closest(".lang-btn"); if (!btn) return;
+          const v = btn.dataset.lang; if (!v) return;
+          try {
+            if (getToken()) { await api.patch("/api/auth/me/lang", { preferred_lang: v }); }
+            localStorage.setItem("ops_lang", v);
+            location.reload();
+          } catch (err) { toast("切换失败：" + (err.message || err), "error"); }
+        });
+        // 初始：未登录走 localStorage；已登录的 preferred_lang 会在 api.js login/me 里同步到 window.__USER_LANG__；
+        // 启动时优先用服务端值；首次加载还不知道，先高亮 localStorage
+        try { paint((window.__USER_LANG__ || localStorage.getItem("ops_lang") || "zh")); } catch { paint("zh"); }
+      })();
+      // 登录后把服务端 preferred_lang 拉到全局（api.js login 路径里会调用 applyServerLang）
+      api.get("/api/health").then((d) => {
+        document.getElementById("health").textContent = d.status === "up" ? t("dashboard.service_normal") : d.status;
+        if (verEl) verEl.textContent = d.version ? `v${d.version}` : "";
+        window.__appVersion = d.version || "";   // 版本信息页复用，避免二次请求
+        window.__appBuild = d.build || "";
+        window.__appBuildTime = d.build_time || "";
+        // FR-421：更新公告。登录后才弹（未登录是登录页，别打扰）；延后一点等主界面渲染完。
+        if (getToken()) setTimeout(() => { initWhatsNew(); paintBadge(); }, 600);
+        else paintBadge();
+      })
+        .catch(() => { document.getElementById("health").textContent = "后端未连接"; });
+
+      // FR-421：顶栏铃铛 → 更新中心（全量更新历史常驻可查）
+      document.getElementById("wn-bell")?.addEventListener("click", openCenter);
+
+      document.getElementById("theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("ops_theme", next);
+        if (current?.render) current.render(content);  // 图表随主题重绘（规范 §6）
+      });
+      document.getElementById("logout").addEventListener("click", () => {
+        clearAuth(); location.hash = "#/login"; location.reload();
+      });
+      document.querySelectorAll(".nav-item:not(.disabled)").forEach((n) =>
+        n.addEventListener("click", () => { location.hash = `#/${n.dataset.page}`; }));
+      document.querySelectorAll(".nav-item.disabled").forEach((n) =>
+        n.addEventListener("click", () => toast(`「${n.textContent.trim()}」按计划在 ${n.title}`, "info")));
+
+      window.addEventListener("hashchange", route);
+      route();
+
+      // 告警角标：每 30s 拉一次活跃告警数
+      setInterval(async () => {
+        if (!getToken()) return;
+        try {
+          const d = await api.get("/api/ops/dashboard/overview");
+          const n = d.alerts?.total || 0;
+          const b = document.getElementById("badge-alerts");
+          b.hidden = n === 0; b.textContent = n;
+        } catch { /* ignore */ }
+      }, 30000);
+    </script>
+  </body>
+</html>
